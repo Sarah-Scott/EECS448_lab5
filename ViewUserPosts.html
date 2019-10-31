@@ -1,0 +1,43 @@
+<html>
+    <head>
+    </head>
+<body>
+
+<?php
+
+$mysqli = new mysqli("mysql.eecs.ku.edu", "sarahlavscott", "EKiNgei4", "sarahlavscott");
+
+if ($mysqli->connect_errno)
+{
+    printf("Connect failed: %s\n", $mysqli->connect_error);
+    exit();
+}
+
+$result = $mysqli->query("SELECT user_id FROM Users");
+
+if($result->num_rows == 0)
+{
+        echo "No results found<br>";
+}
+else
+{
+        echo "Select user from drop down menu<br>";
+        echo "<form action='ViewUserPosts.php' method='post'><select id = 'id' name = 'id'><br>";
+        while($row = $result->fetch_assoc())
+        {
+            $userId = $row["user_id"];
+            echo "<option value = '$userId'> $userId </option>";
+        }
+
+        echo "</select><br><br><button class='button' id='button1' type='submit'>Submit</button></form>";
+
+
+}
+
+$mysqli->close();
+?>
+
+
+
+</body>
+</html>
